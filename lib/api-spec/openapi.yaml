@@ -1,0 +1,1054 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Phytocure DeSci Cannabis Medicine Platform API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: openai
+    description: OpenAI AI chat and analysis operations
+  - name: health
+    description: Health operations
+  - name: products
+    description: Cannabis products and strains
+  - name: distributors
+    description: Trusted cannabis distributors
+  - name: prescriptions
+    description: Medical prescriptions
+  - name: research
+    description: Independent research projects
+  - name: ai
+    description: AI-powered analysis and recommendations
+  - name: transactions
+    description: Solana payment transactions
+  - name: dashboard
+    description: Dashboard aggregates
+
+paths:
+  /openai/conversations:
+    get:
+      operationId: listOpenaiConversations
+      tags: [openai]
+      summary: List all conversations
+      responses:
+        "200":
+          description: List of conversations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OpenaiConversation"
+    post:
+      operationId: createOpenaiConversation
+      tags: [openai]
+      summary: Create a new conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OpenaiConversationInput"
+      responses:
+        "201":
+          description: Created conversation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenaiConversation"
+  /openai/conversations/{id}:
+    get:
+      operationId: getOpenaiConversation
+      tags: [openai]
+      summary: Get conversation with messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Conversation with messages
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenaiConversationWithMessages"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenaiError"
+    delete:
+      operationId: deleteOpenaiConversation
+      tags: [openai]
+      summary: Delete a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenaiError"
+  /openai/conversations/{id}/messages:
+    get:
+      operationId: listOpenaiMessages
+      tags: [openai]
+      summary: List messages in a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OpenaiMessage"
+    post:
+      operationId: sendOpenaiMessage
+      tags: [openai]
+      summary: Send a text message and receive a streaming text response
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OpenaiMessageInput"
+      responses:
+        "200":
+          description: SSE stream of assistant text chunks
+          content:
+            text/event-stream: {}
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  # --- Products ---
+  /products:
+    get:
+      operationId: listProducts
+      tags: [products]
+      summary: List cannabis products
+      parameters:
+        - name: distributorId
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: category
+          in: query
+          schema:
+            type: ["string", "null"]
+        - name: search
+          in: query
+          schema:
+            type: ["string", "null"]
+      responses:
+        "200":
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+    post:
+      operationId: createProduct
+      tags: [products]
+      summary: Create a new cannabis product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+
+  /products/{id}:
+    get:
+      operationId: getProduct
+      tags: [products]
+      summary: Get a product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+
+  # --- Distributors ---
+  /distributors:
+    get:
+      operationId: listDistributors
+      tags: [distributors]
+      summary: List trusted distributors
+      responses:
+        "200":
+          description: List of distributors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Distributor"
+    post:
+      operationId: createDistributor
+      tags: [distributors]
+      summary: Register a new distributor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DistributorInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Distributor"
+
+  /distributors/{id}:
+    get:
+      operationId: getDistributor
+      tags: [distributors]
+      summary: Get distributor details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Distributor detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Distributor"
+
+  # --- Prescriptions ---
+  /prescriptions:
+    get:
+      operationId: listPrescriptions
+      tags: [prescriptions]
+      summary: List prescriptions
+      parameters:
+        - name: patientId
+          in: query
+          schema:
+            type: ["string", "null"]
+        - name: status
+          in: query
+          schema:
+            type: ["string", "null"]
+      responses:
+        "200":
+          description: List of prescriptions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Prescription"
+    post:
+      operationId: createPrescription
+      tags: [prescriptions]
+      summary: Create a new prescription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PrescriptionInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prescription"
+
+  /prescriptions/{id}:
+    get:
+      operationId: getPrescription
+      tags: [prescriptions]
+      summary: Get a prescription by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Prescription detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prescription"
+    patch:
+      operationId: updatePrescription
+      tags: [prescriptions]
+      summary: Update prescription status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PrescriptionUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prescription"
+
+  # --- Research ---
+  /research:
+    get:
+      operationId: listResearch
+      tags: [research]
+      summary: List research projects
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: ["string", "null"]
+      responses:
+        "200":
+          description: List of research projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Research"
+    post:
+      operationId: createResearch
+      tags: [research]
+      summary: Create a new research project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResearchInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Research"
+
+  /research/{id}:
+    get:
+      operationId: getResearch
+      tags: [research]
+      summary: Get a research project
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Research detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Research"
+    patch:
+      operationId: updateResearch
+      tags: [research]
+      summary: Update a research project
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResearchUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Research"
+
+  # --- AI Analysis ---
+  /ai/analyze:
+    post:
+      operationId: analyzeStrain
+      tags: [ai]
+      summary: AI-powered cannabis strain analysis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StrainAnalysisInput"
+      responses:
+        "200":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StrainAnalysis"
+
+  /ai/recommend:
+    post:
+      operationId: getRecommendation
+      tags: [ai]
+      summary: Get AI prescription recommendation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecommendationInput"
+      responses:
+        "200":
+          description: Recommendation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Recommendation"
+
+  /ai/analyses:
+    get:
+      operationId: listAnalyses
+      tags: [ai]
+      summary: List past AI analyses
+      responses:
+        "200":
+          description: List of analyses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StrainAnalysis"
+
+  # --- Transactions ---
+  /transactions:
+    get:
+      operationId: listTransactions
+      tags: [transactions]
+      summary: List payment transactions
+      responses:
+        "200":
+          description: List of transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transaction"
+    post:
+      operationId: createTransaction
+      tags: [transactions]
+      summary: Create a payment transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+
+  /transactions/{id}:
+    get:
+      operationId: getTransaction
+      tags: [transactions]
+      summary: Get transaction by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Transaction detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+
+  # --- Dashboard ---
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Get dashboard summary statistics
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /dashboard/recent-activity:
+    get:
+      operationId: getRecentActivity
+      tags: [dashboard]
+      summary: Get recent platform activity
+      responses:
+        "200":
+          description: Recent activity feed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityItem"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required: [status]
+
+    Product:
+      type: object
+      required: [id, name, category, thcContent, cbdContent, distributorId, priceUsd, priceSol, stock, imageUrl, description, effects, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+          description: "indica | sativa | hybrid | cbd | tincture | extract"
+        thcContent:
+          type: number
+        cbdContent:
+          type: number
+        distributorId:
+          type: integer
+        distributorName:
+          type: ["string", "null"]
+        priceUsd:
+          type: number
+        priceSol:
+          type: number
+        stock:
+          type: integer
+        imageUrl:
+          type: ["string", "null"]
+        description:
+          type: string
+        effects:
+          type: string
+        terpenoids:
+          type: ["string", "null"]
+        verified:
+          type: boolean
+        createdAt:
+          type: string
+
+    ProductInput:
+      type: object
+      required: [name, category, thcContent, cbdContent, distributorId, priceUsd, priceSol, stock, description, effects]
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        thcContent:
+          type: number
+        cbdContent:
+          type: number
+        distributorId:
+          type: integer
+        priceUsd:
+          type: number
+        priceSol:
+          type: number
+        stock:
+          type: integer
+        imageUrl:
+          type: string
+        description:
+          type: string
+        effects:
+          type: string
+        terpenoids:
+          type: string
+
+    Distributor:
+      type: object
+      required: [id, name, walletAddress, location, verified, rating, totalProducts, licenseNumber, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        walletAddress:
+          type: string
+        location:
+          type: string
+        verified:
+          type: boolean
+        rating:
+          type: number
+        totalProducts:
+          type: integer
+        licenseNumber:
+          type: string
+        description:
+          type: ["string", "null"]
+        logoUrl:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    DistributorInput:
+      type: object
+      required: [name, walletAddress, location, licenseNumber]
+      properties:
+        name:
+          type: string
+        walletAddress:
+          type: string
+        location:
+          type: string
+        licenseNumber:
+          type: string
+        description:
+          type: string
+        logoUrl:
+          type: string
+
+    Prescription:
+      type: object
+      required: [id, patientId, doctorId, productId, dosage, frequency, duration, condition, notes, status, createdAt]
+      properties:
+        id:
+          type: integer
+        patientId:
+          type: string
+        doctorId:
+          type: string
+        productId:
+          type: integer
+        productName:
+          type: ["string", "null"]
+        dosage:
+          type: string
+        frequency:
+          type: string
+        duration:
+          type: string
+        condition:
+          type: string
+        notes:
+          type: string
+        status:
+          type: string
+          description: "pending | active | fulfilled | expired"
+        txHash:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    PrescriptionInput:
+      type: object
+      required: [patientId, doctorId, productId, dosage, frequency, duration, condition]
+      properties:
+        patientId:
+          type: string
+        doctorId:
+          type: string
+        productId:
+          type: integer
+        dosage:
+          type: string
+        frequency:
+          type: string
+        duration:
+          type: string
+        condition:
+          type: string
+        notes:
+          type: string
+
+    PrescriptionUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+        txHash:
+          type: string
+
+    Research:
+      type: object
+      required: [id, title, abstract, authorId, status, category, methodology, findings, collaborators, publishedAt, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        abstract:
+          type: string
+        authorId:
+          type: string
+        status:
+          type: string
+          description: "draft | in-progress | peer-review | published"
+        category:
+          type: string
+          description: "pharmacology | clinical | botanical | chemistry"
+        methodology:
+          type: string
+        findings:
+          type: string
+        collaborators:
+          type: string
+        publishedAt:
+          type: ["string", "null"]
+        upvotes:
+          type: integer
+        createdAt:
+          type: string
+
+    ResearchInput:
+      type: object
+      required: [title, abstract, authorId, category, methodology]
+      properties:
+        title:
+          type: string
+        abstract:
+          type: string
+        authorId:
+          type: string
+        category:
+          type: string
+        methodology:
+          type: string
+        findings:
+          type: string
+        collaborators:
+          type: string
+
+    ResearchUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        abstract:
+          type: string
+        status:
+          type: string
+        findings:
+          type: string
+        collaborators:
+          type: string
+
+    StrainAnalysisInput:
+      type: object
+      required: [strainName, thcContent, cbdContent]
+      properties:
+        strainName:
+          type: string
+        thcContent:
+          type: number
+        cbdContent:
+          type: number
+        terpenoids:
+          type: string
+        patientCondition:
+          type: string
+
+    StrainAnalysis:
+      type: object
+      required: [id, strainName, thcContent, cbdContent, therapeuticProfile, riskAssessment, recommendedDosage, contraindications, confidence, createdAt]
+      properties:
+        id:
+          type: integer
+        strainName:
+          type: string
+        thcContent:
+          type: number
+        cbdContent:
+          type: number
+        terpenoids:
+          type: ["string", "null"]
+        therapeuticProfile:
+          type: string
+        riskAssessment:
+          type: string
+        recommendedDosage:
+          type: string
+        contraindications:
+          type: string
+        confidence:
+          type: number
+        createdAt:
+          type: string
+
+    RecommendationInput:
+      type: object
+      required: [condition, severity, patientAge, allergies]
+      properties:
+        condition:
+          type: string
+        severity:
+          type: string
+        patientAge:
+          type: integer
+        allergies:
+          type: string
+        currentMedications:
+          type: string
+        preferences:
+          type: string
+
+    Recommendation:
+      type: object
+      required: [condition, recommendedStrains, dosageProtocol, warningNotes, confidenceScore, alternativeOptions]
+      properties:
+        condition:
+          type: string
+        recommendedStrains:
+          type: string
+        dosageProtocol:
+          type: string
+        warningNotes:
+          type: string
+        confidenceScore:
+          type: number
+        alternativeOptions:
+          type: string
+        researchBasis:
+          type: string
+
+    Transaction:
+      type: object
+      required: [id, buyerWallet, productId, amount, currency, status, txHash, createdAt]
+      properties:
+        id:
+          type: integer
+        buyerWallet:
+          type: string
+        productId:
+          type: integer
+        productName:
+          type: ["string", "null"]
+        prescriptionId:
+          type: ["integer", "null"]
+        amount:
+          type: number
+        currency:
+          type: string
+          description: "SOL | PHYTO"
+        status:
+          type: string
+          description: "pending | confirmed | failed"
+        txHash:
+          type: string
+        createdAt:
+          type: string
+
+    TransactionInput:
+      type: object
+      required: [buyerWallet, productId, amount, currency]
+      properties:
+        buyerWallet:
+          type: string
+        productId:
+          type: integer
+        prescriptionId:
+          type: integer
+        amount:
+          type: number
+        currency:
+          type: string
+        txHash:
+          type: string
+          description: Real on-chain Solana transaction signature (if settled on blockchain)
+
+    DashboardStats:
+      type: object
+      required: [totalProducts, totalDistributors, totalPrescriptions, totalResearch, totalTransactionVolume, activeResearchers, verifiedDistributors, pendingPrescriptions]
+      properties:
+        totalProducts:
+          type: integer
+        totalDistributors:
+          type: integer
+        totalPrescriptions:
+          type: integer
+        totalResearch:
+          type: integer
+        totalTransactionVolume:
+          type: number
+        activeResearchers:
+          type: integer
+        verifiedDistributors:
+          type: integer
+        pendingPrescriptions:
+          type: integer
+
+    ActivityItem:
+      type: object
+      required: [id, type, title, description, timestamp]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          description: "prescription | research | transaction | product"
+        title:
+          type: string
+        description:
+          type: string
+        timestamp:
+          type: string
+        metadata:
+          type: ["string", "null"]
+
+    OpenaiConversation:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - createdAt
+    OpenaiMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: integer
+        role:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - conversationId
+        - role
+        - content
+        - createdAt
+    OpenaiConversationInput:
+      type: object
+      properties:
+        title:
+          type: string
+      required:
+        - title
+    OpenaiMessageInput:
+      type: object
+      properties:
+        content:
+          type: string
+      required:
+        - content
+    OpenaiConversationWithMessages:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/OpenaiMessage"
+      required:
+        - id
+        - title
+        - createdAt
+        - messages
+    OpenaiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

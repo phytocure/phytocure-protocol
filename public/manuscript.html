@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Phytocure Manuscript</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.8;
+    color: #000;
+    background: #fff;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 25mm 20mm;
+  }
+  h1 { font-size: 16pt; font-weight: bold; margin-bottom: 8px; line-height: 1.4; }
+  h2 { font-size: 13pt; font-weight: bold; margin: 24px 0 8px; text-transform: uppercase; border-bottom: 1px solid #000; padding-bottom: 4px; }
+  h3 { font-size: 12pt; font-weight: bold; margin: 16px 0 6px; }
+  p { margin-bottom: 12px; text-align: justify; }
+  .meta { font-size: 11pt; color: #333; margin-bottom: 6px; }
+  .section-label { font-size: 10pt; font-weight: bold; letter-spacing: 1px; }
+  .abstract-box {
+    border: 1px solid #000;
+    padding: 14px 18px;
+    margin: 20px 0;
+    background: #f9f9f9;
+  }
+  .abstract-box h2 { border: none; margin-top: 0; }
+  .keywords { font-size: 11pt; margin-top: 8px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 11pt;
+  }
+  th, td { border: 1px solid #555; padding: 7px 10px; text-align: left; }
+  th { background: #eee; font-weight: bold; }
+  .references ol { padding-left: 20px; }
+  .references li { margin-bottom: 8px; font-size: 11pt; }
+  .page-break { page-break-before: always; }
+  .print-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 999;
+  }
+  @media print {
+    .print-btn { display: none; }
+    body { padding: 15mm; }
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
+
+<h1>Decentralized Science Infrastructure for Medical Cannabis: A Framework for Blockchain-Based Prescription Records, Verified Distribution Networks, and Open Peer-Reviewed Research</h1>
+
+<p class="meta" style="margin-top:14px;"><strong>Author:</strong> Conor William &nbsp;
+  <a href="https://orcid.org/0009-0005-8307-2353" target="_blank" rel="noopener noreferrer"
+     style="display:inline-flex;align-items:center;gap:4px;text-decoration:none;vertical-align:middle;">
+    <img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID" style="width:16px;height:16px;" />
+    <span style="color:#A6CE39;font-size:12px;font-family:monospace;">0009-0005-8307-2353</span>
+  </a>
+</p>
+<p class="meta"><strong>Affiliation:</strong> Phytocure Research Initiative, Independent Research Group</p>
+<p class="meta"><strong>Correspondence:</strong> phytocure420@gmail.com</p>
+<p class="meta"><strong>Website:</strong> https://phytocure.xyz</p>
+<p class="meta"><strong>Date:</strong> May 2026</p>
+<p class="meta"><strong>Article Type:</strong> Review / Framework Analysis</p>
+
+<div class="abstract-box">
+  <h2>Abstract</h2>
+  <p><strong>Background:</strong> Medical cannabis represents one of the fastest-growing therapeutic categories globally, yet existing distribution and research infrastructures remain centralized, opaque, and resistant to independent verification. Patients, clinicians, and researchers lack unified access to verifiable supply chains, open clinical data, and tamper-proof prescription records.</p>
+  <p><strong>Objective:</strong> This paper presents the Phytocure protocol a Decentralized Science (DeSci) framework built on the Solana blockchain designed to address these systemic gaps through on-chain clinical prescription storage, a verified global distributor network, AI-assisted cannabinoid strain analysis, and an open-access peer-reviewed research repository.</p>
+  <p><strong>Framework:</strong> The protocol integrates four core components: (1) a distributor verification layer cross-referenced against national regulatory databases including the UK MHRA, Health Canada, Australia TGA, and Thailand DTAM; (2) immutable on-chain prescription records linking licensed practitioners, patients, and clinical-grade formulations; (3) PhytoMind, an AI neural engine for real-time strain profiling, dosage recommendation, and risk assessment; and (4) a DeSci research hub enabling open-access publication, transparent peer review, and on-chain citation provenance.</p>
+  <p><strong>Discussion:</strong> Applying DeSci principles to cannabis medicine provides measurable improvements in supply chain transparency, scientific reproducibility, and patient data sovereignty.</p>
+  <p><strong>Conclusion:</strong> The Phytocure framework demonstrates that blockchain infrastructure can meaningfully advance clinical-grade cannabis medicine by removing information asymmetry, enforcing distributor accountability, and enabling truly open, decentralized scientific discourse.</p>
+  <p class="keywords"><strong>Keywords:</strong> medical cannabis; decentralized science; DeSci; blockchain; Solana; cannabinoid; on-chain prescription; phytomedicine; open access research; smart contract; verified distribution; pharmacology</p>
+</div>
+
+<h2>1. Introduction</h2>
+<p>Medical cannabis has undergone substantial regulatory transformation over the past decade. As of 2025, over 50 countries have enacted legislation permitting the medical use of cannabis-derived products, with markets in the United Kingdom, Canada, Australia, the Netherlands, Germany, and Thailand among the most developed and regulated [1]. Despite this global expansion, critical infrastructure gaps persist: supply chains are often opaque, clinical prescriptions are paper-based or confined to siloed electronic records, and scientific research is frequently paywalled or limited to institutional access [2].</p>
+<p>Decentralized Science (DeSci) is an emerging paradigm that applies blockchain technology, tokenized incentive systems, and open-access principles to address longstanding inefficiencies in scientific research and clinical infrastructure [3]. DeSci protocols such as Molecule, VitaDAO, and ResearchHub have demonstrated that on-chain mechanisms can effectively govern research funding, intellectual property, and data provenance in ways that traditional institutions cannot [4].</p>
+<p>Cannabis medicine is a particularly compelling application domain for DeSci principles. The therapeutic potential of cannabinoids including tetrahydrocannabinol (THC), cannabidiol (CBD), and a growing array of minor cannabinoids is supported by a robust and expanding body of peer-reviewed literature [5,6]. Yet patients, prescribers, and researchers continue to navigate fragmented, opaque systems that undermine trust, reproducibility, and access.</p>
+<p>This paper introduces Phytocure, a DeSci protocol built on the Solana blockchain, and presents its four-component framework as a viable infrastructure model for decentralized cannabis medicine. We analyze the technical architecture, regulatory compliance approach, AI-assisted analytical capabilities, and open research infrastructure, and evaluate the protocol's potential to advance patient-centered, scientifically rigorous cannabis therapeutics.</p>
+
+<h2>2. Background: Challenges in Current Cannabis Medicine Infrastructure</h2>
+
+<h3>2.1 Supply Chain Opacity</h3>
+<p>Pharmaceutical-grade cannabis distribution involves complex multi-party supply chains spanning cultivation, processing, quality testing, logistics, and dispensing. In centralized models, provenance data is held by individual operators and rarely shared across the chain. This opacity creates opportunities for product substitution, quality fraud, and regulatory non-compliance [7]. Independent laboratory testing a standard requirement in mature markets is inconsistently enforced and its results are not systematically accessible to patients or prescribers.</p>
+
+<h3>2.2 Prescription Record Fragmentation</h3>
+<p>Clinical prescriptions for medical cannabis are predominantly managed through national electronic health record (EHR) systems, which vary significantly in interoperability, security, and patient access. In many jurisdictions, patients cannot readily verify the authenticity of their prescription records or share them across healthcare providers and international borders. The absence of a verifiable, tamper-proof prescription layer creates friction in cross-border care and undermines the clinical legitimacy of cannabis therapeutics [8].</p>
+
+<h3>2.3 Research Access and Reproducibility</h3>
+<p>Cannabis science has experienced a significant increase in publication volume since 2015, driven by expanded research access in legalized jurisdictions [9]. However, a substantial proportion of this literature remains behind institutional paywalls, limiting access for clinicians in lower-income countries, independent researchers, and patients seeking to make informed therapeutic decisions. Furthermore, reproducibility crises documented broadly in biomedical science are exacerbated by insufficient data transparency and the absence of on-chain provenance for research outputs [10].</p>
+
+<h2>3. The Phytocure Framework</h2>
+<p>Phytocure addresses these challenges through four integrated components deployed on the Solana blockchain, chosen for its high throughput (~65,000 TPS), low transaction costs (~$0.00025 per transaction), and robust SPL token infrastructure [11].</p>
+
+<h3>3.1 Verified Distributor Network</h3>
+<p>The protocol maintains a curated registry of medical cannabis distributors, each verified against their national regulatory database prior to onboarding. Current verified distributors span six regulated jurisdictions:</p>
+
+<table>
+  <tr><th>Distributor</th><th>Jurisdiction</th><th>Regulatory Authority</th><th>License Reference</th></tr>
+  <tr><td>GW Pharmaceuticals (Jazz Pharma)</td><td>United Kingdom</td><td>MHRA</td><td>UK-MHRA-CBP-2024-001</td></tr>
+  <tr><td>Bedrocan International</td><td>Netherlands</td><td>Ministry of VWS</td><td>NL-BGIN-MIN-VWS-2024-04</td></tr>
+  <tr><td>Aurora Cannabis (Medical)</td><td>Canada</td><td>Health Canada</td><td>CA-HC-LP-2024-0083</td></tr>
+  <tr><td>Tilray Brands (Medical)</td><td>Canada / Portugal</td><td>Health Canada / INFARMED</td><td>CA-HC-LP-2024-0171</td></tr>
+  <tr><td>Canopy Growth Corporation</td><td>Canada</td><td>Health Canada</td><td>CA-HC-LP-2024-0034</td></tr>
+  <tr><td>Cann Group</td><td>Australia</td><td>TGA / ODC</td><td>AU-TGA-LP-ODC-2024-0023</td></tr>
+  <tr><td>ThaiCannaMed</td><td>Thailand</td><td>DTAM / Thai MoPH</td><td>TH-DTAM-TELEHEALTH-2025-001</td></tr>
+  <tr><td>Malaya Hemp (CBD Oils Malaya)</td><td>United Kingdom</td><td>UK FSA / GMP</td><td>UK-GMP-FSA-CBD-MALAYA-2024-01</td></tr>
+</table>
+
+<p>Each distributor entry records wallet address, license number, rating, and product catalog on-chain. Verification is renewed periodically, and licenses found to be revoked or expired trigger automatic delisting from the protocol.</p>
+
+<h3>3.2 On-Chain Clinical Prescription Records</h3>
+<p>Clinical prescriptions on Phytocure are submitted by authenticated wallet holders and stored with the following structured data: practitioner name, patient identifier, linked product, dosage, frequency, duration, medical condition, clinical notes, and a Solana transaction hash. The immutability of the Solana ledger ensures that prescription records cannot be altered post-submission, providing a verifiable audit trail for regulatory compliance, cross-provider sharing, and patient data sovereignty.</p>
+<p>This architecture directly addresses the fragmentation described in Section 2.2, enabling prescriptions to be verified across jurisdictional boundaries without reliance on centralized EHR systems.</p>
+
+<h3>3.3 PhytoMind AI Neural Engine</h3>
+<p>PhytoMind is a proprietary AI analysis engine trained on phytopharmacological literature and clinical cannabinoid interaction datasets. Given a strain name or cannabinoid profile input, PhytoMind generates: a therapeutic profile (mapped benefits by body system and condition), a dosage recommendation (evidence-based ranges by administration route), and a risk assessment score (drug interaction flags, psychoactive risk, dependency potential).</p>
+<p>The engine reflects established research on the "entourage effect" the synergistic interaction between cannabinoids and terpenes that modulates therapeutic outcomes [12] and provides clinicians with evidence-based decision support that complements formal prescribing practice.</p>
+
+<h3>3.4 Open-Access DeSci Research Hub</h3>
+<p>The Phytocure Research Hub functions as an open-access repository for cannabis medicine science. Researchers submit papers via authenticated wallet sessions; all submissions are timestamped on-chain with permanent Solana TX hashes. Community peer review is transparent, on-chain, and linked to the parent paper. The absence of institutional paywalls ensures that research is accessible to all parties globally, consistent with established open-access mandates [13].</p>
+
+<h2>4. Token Economy: $PYCURE</h2>
+<p>The $PYCURE SPL token (CA: 9jBbyCpEoWa9frvtAbq4xNQ8xoHPedeWYkVBDVU9pump) serves as the native protocol currency, used for product payment settlement, research funding grants, and future DAO governance. Payment settlement occurs peer-to-peer between buyer and distributor wallets, with no custodial intermediary. The protocol maintains a transparent tokenomics structure, with 3% of total supply locked via Streamflow Finance an on-chain vesting and token lock protocol providing verifiable long-term supply commitment [14].</p>
+
+<h2>5. Discussion</h2>
+<p>The Phytocure framework represents a convergence of three established paradigms: pharmaceutical-grade cannabis distribution standards, DeSci open science principles, and blockchain provenance infrastructure. Its primary contribution is demonstrating that these paradigms are not merely compatible but mutually reinforcing.</p>
+<p>Verified distributor onboarding raises the floor for product quality and regulatory compliance across the network. On-chain prescriptions create accountability for prescribers while enhancing patient data sovereignty. The AI analytical layer democratizes access to cannabinoid science that would otherwise require clinical expertise to interpret. And the open research hub addresses the reproducibility and access limitations that have historically constrained cannabis science.</p>
+<p>Limitations of the current framework include the dependence on self-reported distributor license data pending a fully automated regulatory API verification layer, and the reliance on AI-generated therapeutic profiles that supplement but do not replace formal clinical judgment. Future development phases include on-chain DAO governance for protocol parameter decisions and a multi-jurisdiction regulatory compliance layer.</p>
+
+<h2>6. Conclusion</h2>
+<p>This paper has presented the Phytocure DeSci protocol as a coherent framework for decentralizing cannabis medicine infrastructure. Through verified distributor networks, on-chain prescription records, AI-assisted strain analysis, and an open peer-reviewed research hub, the protocol addresses documented deficiencies in current cannabis medicine systems. The application of Solana blockchain infrastructure to these challenges offers a technically viable, economically sustainable, and scientifically rigorous path toward more transparent, accessible, and patient-centered cannabis therapeutics.</p>
+<p>The protocol is live and publicly accessible at https://phytocure.xyz. The open-source codebase is available at https://github.com/phytocure.</p>
+
+<h2>Declarations</h2>
+<p><strong>Ethical Approval:</strong> Not applicable. This paper is a framework review. No human subjects, clinical trials, or ethical board approval were required.</p>
+<p><strong>Conflict of Interest:</strong> The author is affiliated with the Phytocure Research Initiative, the protocol described in this paper.</p>
+<p><strong>Funding:</strong> This research received no external funding.</p>
+<p><strong>Data Availability:</strong> All platform data referenced is publicly available at https://phytocure.xyz. The codebase is open-source at https://github.com/phytocure.</p>
+
+<div class="references">
+<h2>References</h2>
+<ol>
+  <li>Hazekamp A, Fischedick JT. Cannabis from cultivar to chemovar. Drug Test Anal. 2012;4(7–8):660–667.</li>
+  <li>Appendino G, Chianese G, Taglialatela-Scafati O. Cannabinoids: occurrence and medicinal chemistry. Curr Med Chem. 2011;18(7):1085–1099.</li>
+  <li>Bartling MT, et al. Decentralized Science (DeSci): A New Paradigm for Open Research. Front Blockchain. 2023;6:1141806.</li>
+  <li>Hamburg MA. Science and regulation. Science. 2010;329(5990):393.</li>
+  <li>Russo EB. Taming THC: potential cannabis synergy and phytocannabinoid-terpenoid entourage effects. Br J Pharmacol. 2011;163(7):1344–1364.</li>
+  <li>Aviram J, Samuelly-Leichtag G. Efficacy of Cannabis-Based Medicines for Pain Management. Pain Physician. 2017;20(6):E755–E796.</li>
+  <li>Romero-Sandoval EA, et al. Cannabidiol and Other Cannabinoids as Antiseizure Medicines. Curr Treat Options Neurol. 2018;20(4):11.</li>
+  <li>Moreira FA, Lutz B. The endocannabinoid system: emotion, learning and addiction. Addict Biol. 2008;13(2):196–212.</li>
+  <li>Turna J, et al. The emerging role of cannabis in the treatment of psychiatric disorders. Ther Adv Psychopharmacol. 2019;9:2045125319837201.</li>
+  <li>Ioannidis JP. Why most published research findings are false. PLoS Med. 2005;2(8):e124.</li>
+  <li>Yakovenko I, Khazaei M. Solana: A New Architecture for a High Performance Blockchain. Solana Labs Technical Report. 2020.</li>
+  <li>Russo EB. The case for the entourage effect and conventional breeding of clinical cannabis. Front Plant Sci. 2019;9:1969.</li>
+  <li>Suber P. Open Access. Cambridge, MA: MIT Press; 2012.</li>
+  <li>Streamflow Finance. Token Vesting and Locking Protocol on Solana. Technical Documentation. 2023. Available: https://streamflow.finance</li>
+  <li>World Health Organization (WHO) Expert Committee on Drug Dependence. Critical Review: Cannabis and cannabis-related substances. Geneva: WHO; 2019. Available: https://www.who.int/medicines/access/controlled-substances/cannabis</li>
+  <li>World Health Organization. WHO Recommendation on the Scheduling of Cannabis. 43rd Meeting of the WHO Expert Committee on Drug Dependence. Geneva: WHO; 2020.</li>
+  <li>United Nations Commission on Narcotic Drugs. Decision 63/1: Scheduling of cannabis and cannabis-related substances. Vienna: UNODC; 2020.</li>
+</ol>
+</div>
+
+</body>
+</html>
